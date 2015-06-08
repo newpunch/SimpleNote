@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#d8e0e8"
+    android:orientation="vertical">
+
+    <ListView
+        android:padding="12dp"
+        android:id="@+id/note_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:divider="#ff098b6e">
+    </ListView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/new_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Note"
+            android:textSize="25sp"/>
+    </LinearLayout>
+
+</LinearLayout>

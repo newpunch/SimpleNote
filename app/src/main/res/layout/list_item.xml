@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="26sp"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="#f5020e02"
+            />
+        <TextView
+            android:id="@+id/item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#ff6e84ff"
+            android:gravity="bottom|left"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_content"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:textSize="12dp"
+        android:visibility="gone"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/item_photo_1"
+            android:layout_width="75dp"
+            android:layout_height="55dp"
+            android:visibility="gone"
+            />
+        <ImageView
+            android:id="@+id/item_photo_2"
+            android:layout_width="75dp"
+            android:layout_height="55dp"
+            android:paddingLeft="15dp"
+            android:visibility="gone"
+            />
+        <ImageView
+            android:id="@+id/item_photo_3"
+            android:layout_width="75dp"
+            android:layout_height="55dp"
+            android:paddingLeft="15dp"
+            android:visibility="gone"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>
