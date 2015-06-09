@@ -28,29 +28,20 @@ import java.util.Date;
 public class EditNote extends Activity implements View.OnClickListener {
     private static final int PICK_CODE = 1;
     private static final int CAMERA_CODE = 2;
-    private EditText titleText;
-    private EditText contentText;
+    private static final int VIDEO_CODE = 3;
+    private EditText titleText, contentText;
     private TextView timeText;
-    private ImageView contentImg;
-    private ImageView contentPhoto;
+    private ImageView contentImg,contentPhoto;
     private VideoView contentVideo;
-    private Button addImg;
-    private Button addVideo;
-    private Button takePhoto;
-    private String noteTitle;
-    private  String noteContent;
-    private  String noteTime;
-    private File imgFile;
-    private File photoFile;
+    private Button addImg, addVideo, takePhoto;
+    private String noteTitle, noteContent, noteTime;
+    private File imgFile, photoFile, videoFile;
+
 
 
     private NotesDB notesDB;
     private SQLiteDatabase dbWriter;
 
-    protected  String noteTitlePrevious;
-    protected  String noteContentPrevious;
-    private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
 
 
 
@@ -109,6 +100,11 @@ public class EditNote extends Activity implements View.OnClickListener {
                 break;
             case R.id.add_video:
                 contentVideo.setVisibility(View.VISIBLE);
+                Intent videoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                videoFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/"
+                         +getTime() +".mp4");
+                videoIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(videoFile));
+                startActivityForResult(videoIntent, VIDEO_CODE);
                 break;
         }
     }
@@ -116,11 +112,12 @@ public class EditNote extends Activity implements View.OnClickListener {
 
     private void addDB() {
         ContentValues cv = new ContentValues();
-        cv.put(NotesDB.CONTENT, titleText.getText().toString());
+        cv.put(NotesDB.TITLE, titleText.getText().toString());
         cv.put(NotesDB.CONTENT, contentText.getText().toString());
-        cv.put(NotesDB.CONTENT, timeText.getText().toString());
+        cv.put(NotesDB.TIME, timeText.getText().toString());
         cv.put(NotesDB.IMG, imgFile+"");
         cv.put(NotesDB.PHOTO, photoFile+"");
+        cv.put(NotesDB.VIDEO, videoFile+"");
         dbWriter.insert(NotesDB.TABLE_NAME, null, cv);
     }
 
@@ -142,34 +139,14 @@ public class EditNote extends Activity implements View.OnClickListener {
             Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
             contentPhoto.setImageBitmap(bitmap);
         }
+        if (resultCode == VIDEO_CODE){
+            contentVideo.setVideoURI(Uri.fromFile(videoFile));
+            contentVideo.start();
+        }
     }
 
     @Override
     public void onBackPressed() {
-        noteTitle = titleText.getText().toString();
-        noteContent = contentText.getText().toString();
-        if(noteTitle.equals(noteTitlePrevious) && noteContent.equals(noteContentPrevious)){
-            setResult(RESULT_CANCELED);
-            finish();
-        }
-        if(noteTitle.equals("")){
-            if(noteContent.equals("")){
-                setResult(RESULT_CANCELED);
-                finish();
-            }
-            noteTitle = noteContent;
-        }
-
-        Intent noteIntent = new Intent();
-        noteIntent.putExtra("time", noteTime);
-        noteIntent.putExtra("title", noteTitle);
-        setResult(RESULT_OK, noteIntent);
-        editor = getSharedPreferences(noteTitle + noteTime,MODE_PRIVATE).edit();
-        editor.putString("noteContent", noteContent);
-        editor.putString("noteTime", noteTime);
-        editor.putString("noteTitle", noteTitle);
-        editor.commit();
-
         addDB();
         finish();
     }

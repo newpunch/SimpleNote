@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,8 @@ public class NoteAdapter extends BaseAdapter{
         viewHolder.timeTV.setText(time);
         viewHolder.contentTV.setText(content);
         viewHolder.imgTV_1.setImageBitmap(getImageThumbnail(urlimg, 75, 55));
+        viewHolder.imgTV_2.setImageBitmap(getImageThumbnail(urlphoto, 75, 55));
+        viewHolder.imgTV_2.setImageBitmap(getVideoThumbnail(urlvideo, 75, 55, MediaStore.Images.Thumbnails.MICRO_KIND));
 
         return convertView;
     }
@@ -98,6 +101,14 @@ public class NoteAdapter extends BaseAdapter{
         bitmap = BitmapFactory.decodeFile(uri, options);
         bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height,
                 ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+        return bitmap;
+    }
+
+    private Bitmap getVideoThumbnail(String uri, int width, int height, int kind){
+        Bitmap bitmap = null;
+        bitmap = ThumbnailUtils.createVideoThumbnail(uri, kind);
+        bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+
         return bitmap;
     }
 

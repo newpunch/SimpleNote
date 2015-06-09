@@ -26,7 +26,7 @@ public class NotesDB extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREAT TABLE" + TABLE_NAME +"(" + ID
+        db.execSQL("CREATE TABLE " + TABLE_NAME +" (" + ID
                 + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + TITLE + " TEXT NOT NULL" + TIME + " TEXT NOT NULL"
                 + CONTENT + " TEXT NOT NULL" + IMG + " TEXT NOT NULL"
