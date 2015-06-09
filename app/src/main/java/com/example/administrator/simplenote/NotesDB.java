@@ -28,9 +28,9 @@ public class NotesDB extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME +" (" + ID
                 + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + TITLE + " TEXT NOT NULL" + TIME + " TEXT NOT NULL"
-                + CONTENT + " TEXT NOT NULL" + IMG + " TEXT NOT NULL"
-                + PHOTO + " TEXT NOT NULL" + VIDEO + " TEXT NOT NULL)");
+                + TITLE + " TEXT NOT NULL," + TIME + " TEXT NOT NULL,"
+                + CONTENT + " TEXT NOT NULL," + IMG + " TEXT NOT NULL,"
+                + PHOTO + " TEXT NOT NULL," + VIDEO + " TEXT NOT NULL)");
 
     }
 

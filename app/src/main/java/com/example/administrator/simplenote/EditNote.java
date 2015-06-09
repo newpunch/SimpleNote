@@ -34,7 +34,6 @@ public class EditNote extends Activity implements View.OnClickListener {
     private ImageView contentImg,contentPhoto;
     private VideoView contentVideo;
     private Button addImg, addVideo, takePhoto;
-    private String noteTitle, noteContent, noteTime;
     private File imgFile, photoFile, videoFile;
 
 
@@ -52,8 +51,6 @@ public class EditNote extends Activity implements View.OnClickListener {
         initView();
         initEven();
         timeText.setText(getTime());
-
-
     }
 
     private void initView() {
@@ -82,7 +79,6 @@ public class EditNote extends Activity implements View.OnClickListener {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.add_img:
-                contentImg.setVisibility(View.VISIBLE);
                 imgFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/"
                         + getTime() +".jpg");
                 Intent getImgIntent = new Intent(Intent.ACTION_PICK);
@@ -91,7 +87,7 @@ public class EditNote extends Activity implements View.OnClickListener {
                 startActivityForResult(getImgIntent, PICK_CODE);
                 break;
             case R.id.take_photo:
-                contentImg.setVisibility(View.VISIBLE);
+
                 Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 photoFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/"
                         + getTime() + ".jpg");
@@ -99,7 +95,7 @@ public class EditNote extends Activity implements View.OnClickListener {
                 startActivityForResult(takePhotoIntent,CAMERA_CODE);
                 break;
             case R.id.add_video:
-                contentVideo.setVisibility(View.VISIBLE);
+
                 Intent videoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 videoFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/"
                          +getTime() +".mp4");
@@ -132,14 +128,17 @@ public class EditNote extends Activity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == PICK_CODE){
+            contentImg.setVisibility(View.VISIBLE);
             Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
             contentImg.setImageBitmap(bitmap);
         }
         if (resultCode == CAMERA_CODE){
+            contentPhoto.setVisibility(View.VISIBLE);
             Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
             contentPhoto.setImageBitmap(bitmap);
         }
         if (resultCode == VIDEO_CODE){
+            contentVideo.setVisibility(View.VISIBLE);
             contentVideo.setVideoURI(Uri.fromFile(videoFile));
             contentVideo.start();
         }
