@@ -32,12 +32,14 @@
             android:id="@+id/c_img"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:scaleType="fitCenter"
             android:visibility="gone"
             />
         <ImageView
             android:id="@+id/c_photo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
             android:visibility="gone"
             />
         <VideoView
